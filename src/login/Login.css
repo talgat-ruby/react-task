@@ -1,0 +1,24 @@
+.login {
+  width: 800px;
+  height: 330px;
+  padding: 10px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  margin-top: 200px;
+}
+
+.login h2 {
+  align-self: center;
+  color: #4c565e;
+  font-size: 24px;
+  font-weight: 700;
+  padding: 0 10px 15px;
+  border-bottom: 2px solid #6caee0;
+  margin: 60px 0;
+}
+
+.login form {
+  display: flex;
+  justify-content: space-around;
+}
