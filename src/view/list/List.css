@@ -1,0 +1,23 @@
+.list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.list article {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  margin-bottom: 2rem;
+}
+
+.list article img:nth-child(1) {
+  width: 8rem;
+  height: 8rem;
+}
+
+.list article img:nth-child(2) {
+  width: 3rem;
+  height: 3rem;
+  margin-top: 1rem;
+}

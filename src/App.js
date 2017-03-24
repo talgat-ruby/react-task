@@ -2,38 +2,36 @@ import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import './App.css';
 
+import { DEFAULT_REDDIT } from './environment';
+
 import Login from './login/Login';
-import Main from './main/Main';
+import View from './view/View';
 
 class App extends Component {
 	state = {
-		user: ''
+		user: '',
+		reddit: ''
 	}
 
-	setUser = user => {
-		console.log('user', user);
-		this.setState({ user });
-	}
+	setAppState = state => this.setState(state)
 
 	render = () => (
 		<div className="app">
-			{!this.state.user && <Redirect to="/login"/>}
 			<Switch>
 				<Route exact path="/login" render={() => (
-					<Login setUser={this.setUser}/>
+					<Login setAppState={this.setAppState}/>
 				)}/>
-				<Route exact path="/main" component={Main}/>
+				<Route exact path="/reddit/:redditName" render={
+					({ match: { params: { redditName } } }) => (
+						!this.state.user ?
+						<Redirect push to="/login"/>
+						: <View user={this.state.user} redditName={redditName}/>
+					)
+				}/>
+				<Redirect push to={`/reddit/${this.state.reddit || DEFAULT_REDDIT}`}/>
 			</Switch>
 		</div>
 	)
 }
-
-/*
-<Switch>
-				<Route exact path="/" render={() => <Redirect to="/login"/>}/>
-				<Route exact path="/login" component={Login}/>
-				<Route exact path="/main" component={Main}/>
-			</Switch>
-*/
 
 export default App;

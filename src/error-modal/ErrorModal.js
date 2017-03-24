@@ -1,25 +1,27 @@
 import React, { PropTypes } from 'react';
 import { Button, Modal } from 'semantic-ui-react';
-import './LoginModal.css';
+import './ErrorModal.css';
 
-const LoginModal = ({ open, closeModal }) => {
+const ErrorModal = ({ open, closeModal, text }) => {
 	return (
 		<Modal size="small" open={open} onClose={closeModal}>
 			<Modal.Header>Error</Modal.Header>
 			<Modal.Content>
-				Please check you credentials
+				{text}
 			</Modal.Content>
 			<Modal.Actions>
 				<Button positive onClick={closeModal}>
-					Yes
+					OK
 				</Button>
 			</Modal.Actions>
 		</Modal>
 	);
 };
 
-LoginModal.propTypes = {
-	open: PropTypes.bool.isRequired
+ErrorModal.propTypes = {
+	open: PropTypes.bool.isRequired,
+	closeModal: PropTypes.func.isRequired,
+	text: PropTypes.string.isRequired
 };
 
-export default LoginModal;
+export default ErrorModal;

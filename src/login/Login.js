@@ -1,19 +1,18 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, PropTypes } from 'react';
 import { Input, Button } from 'semantic-ui-react';
 import { Redirect } from 'react-router-dom';
 import './Login.css';
 
-import LoginModal from './LoginModal';
+import { VALID_PASSWORD } from '../environment';
 
-const validData = {
-	password: 'password'
-};
+import ErrorModal from '../error-modal/ErrorModal';
 
 class Login extends PureComponent {
 	initState = {
 		success: false,
 		openModal: false,
 		user: '',
+		reddit: '',
 		password: ''
 	}
 
@@ -24,14 +23,17 @@ class Login extends PureComponent {
 	}
 
 	validate = () => (
-		this.state.password === validData.password
+		this.state.password === VALID_PASSWORD
 	)
 
 	submitHandler = event => {
 		event.preventDefault();
 		if(this.validate()) {
 			this.setState({ success: true });
-			this.props.setUser(this.state.user);
+			this.props.setAppState({
+				user: this.state.user,
+				reddit: this.state.reddit
+			});
 		} else {
 			this.setState({ openModal: true });
 		}
@@ -45,11 +47,17 @@ class Login extends PureComponent {
 
 	render = () => (
 		this.state.success ? (
-			<Redirect to="/main"/>
+			<Redirect to="/"/>
 		) :	(
 			<div className="login">
 				<h2>Log In Your Account</h2>
 				<form onSubmit={this.submitHandler}>
+					<Input 
+						placeholder="Enter reddit name"
+						size="large"
+						name="reddit"
+						value={this.state.reddit}
+						onChange={this.changeHandler}/>
 					<Input 
 						placeholder="Enter username"
 						size="large"
@@ -67,10 +75,17 @@ class Login extends PureComponent {
 						Login
 					</Button>
 				</form>
-				<LoginModal open={this.state.openModal} closeModal={this.closeModal}/>
+				<ErrorModal 
+					text="Please check you credentials"
+					open={this.state.openModal}
+					closeModal={this.closeModal}/>
 			</div>
 		)
 	)
 }
+
+Login.propTypes = {
+	setAppState: PropTypes.func.isRequired
+};
 
 export default Login;

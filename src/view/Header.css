@@ -1,0 +1,21 @@
+.main-header {
+  font-family: "Courier New", Courier, monospace;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  height: 80px;
+  width: 100%;
+  background-color: rgb(41, 44, 47);
+  box-shadow: rgba(0, 0, 0, 0.15) 1px 2px 2px 0px;
+}
+
+.main-header .reddit-name {
+  font-size: 14px;
+  color: #fff;
+}
+
+.main-header .user {
+  color: #fff;
+  font-weight: 600;
+}
+
